@@ -11,7 +11,7 @@ import {
 } from '@expo-google-fonts/archivo';
 import { Inter_400Regular, Inter_500Medium } from '@expo-google-fonts/inter';
 
-import { SchedulingDetails } from 'screens/SchedulingDetails';
+import { SchedulingComplete } from 'screens/SchedulingComplete';
 
 import { ThemeProvider } from 'styled-components/native';
 
@@ -53,7 +53,7 @@ export default function App() {
   return (
     <ThemeProvider theme={theme}>
       <GestureHandlerRootView onLayout={onLayoutRootView} style={{ flex: 1 }}>
-        <SchedulingDetails />
+        <SchedulingComplete />
       </GestureHandlerRootView>
     </ThemeProvider>
   );
