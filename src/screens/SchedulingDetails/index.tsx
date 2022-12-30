@@ -1,6 +1,8 @@
 import React from 'react';
 import { RFValue } from 'react-native-responsive-fontsize';
 
+import { useNavigation } from '@react-navigation/native';
+
 import { Feather } from '@expo/vector-icons';
 
 import { Accessory } from 'components/Accessory';
@@ -21,10 +23,12 @@ import * as S from './styles';
 
 export function SchedulingDetails() {
   const theme = useTheme();
+  const navigation = useNavigation();
+
   return (
     <S.Container>
       <S.Header>
-        <BackButton onPress={() => ({})} />
+        <BackButton onPress={() => navigation.goBack()} />
       </S.Header>
 
       <S.CarImages>
@@ -94,7 +98,11 @@ export function SchedulingDetails() {
       </S.Content>
 
       <S.Footer>
-        <Button title="Alugar agora" color={theme.colors.success} />
+        <Button
+          title="Alugar agora"
+          color={theme.colors.success}
+          onPress={() => navigation.navigate('SchedulingComplete' as never)}
+        />
       </S.Footer>
     </S.Container>
   );

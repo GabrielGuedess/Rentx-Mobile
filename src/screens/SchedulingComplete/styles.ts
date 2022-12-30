@@ -40,5 +40,5 @@ export const Message = styled.Text`
 export const Footer = styled.View`
   width: 100%;
   align-items: center;
-  margin: ${RFValue(80)}px 0;
+  margin-bottom: ${RFValue(80)}px;
 `;

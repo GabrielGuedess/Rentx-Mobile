@@ -1,10 +1,11 @@
 import React from 'react';
+import { RectButtonProps } from 'react-native-gesture-handler';
 
 import Gasoline from 'assets/gasoline.svg';
 
 import * as S from './styles';
 
-export interface CarProps {
+export interface CarProps extends RectButtonProps {
   brand: string;
   name: string;
   thumbnail: string;
@@ -14,9 +15,9 @@ export interface CarProps {
   };
 }
 
-export function Car({ brand, name, thumbnail, rent }: CarProps) {
+export function Car({ brand, name, thumbnail, rent, ...props }: CarProps) {
   return (
-    <S.Container>
+    <S.Container {...props}>
       <S.Details>
         <S.Brand>{brand}</S.Brand>
         <S.Name>{name}</S.Name>

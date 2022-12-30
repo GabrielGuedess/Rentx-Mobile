@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { useNavigation } from '@react-navigation/native';
+
 import { StatusBar } from 'expo-status-bar';
 
 import { BackButton } from 'components/BackButton';
@@ -14,13 +16,17 @@ import * as S from './styles';
 
 export function Scheduling() {
   const theme = useTheme();
+  const navigation = useNavigation();
 
   return (
     <S.Container>
       <StatusBar style="light" backgroundColor="transparent" />
 
       <S.Header>
-        <BackButton color={theme.colors.shape} onPress={() => ({})} />
+        <BackButton
+          color={theme.colors.shape}
+          onPress={() => navigation.goBack()}
+        />
 
         <S.Title>
           Escolha uma {'\n'}
@@ -48,7 +54,10 @@ export function Scheduling() {
       </S.Content>
 
       <S.Footer>
-        <Button title="Confirmar" />
+        <Button
+          title="Confirmar"
+          onPress={() => navigation.navigate('SchedulingDetails' as never)}
+        />
       </S.Footer>
     </S.Container>
   );

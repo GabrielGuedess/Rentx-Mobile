@@ -1,6 +1,8 @@
 import React from 'react';
 import { RFValue } from 'react-native-responsive-fontsize';
 
+import { useNavigation } from '@react-navigation/native';
+
 import { StatusBar } from 'expo-status-bar';
 
 import { Car } from 'components/Car';
@@ -12,6 +14,8 @@ import { mockCars } from './mock';
 import * as S from './styles';
 
 export function Home() {
+  const navigation = useNavigation();
+
   return (
     <S.Container>
       <StatusBar style="light" backgroundColor="transparent" />
@@ -26,7 +30,12 @@ export function Home() {
       <S.CarList
         data={mockCars}
         keyExtractor={item => item.name}
-        renderItem={({ item }) => <Car {...item} />}
+        renderItem={({ item }) => (
+          <Car
+            {...item}
+            onPress={() => navigation.navigate('CarDetails' as never)}
+          />
+        )}
       />
     </S.Container>
   );

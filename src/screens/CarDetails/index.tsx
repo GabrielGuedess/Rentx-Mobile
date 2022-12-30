@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { useNavigation } from '@react-navigation/native';
+
 import { Accessory } from 'components/Accessory';
 import { BackButton } from 'components/BackButton';
 import { Button } from 'components/Button';
@@ -15,10 +17,12 @@ import Speed from 'assets/speed.svg';
 import * as S from './styles';
 
 export function CarDetails() {
+  const navigation = useNavigation();
+
   return (
     <S.Container>
       <S.Header>
-        <BackButton onPress={() => ({})} />
+        <BackButton onPress={() => navigation.goBack()} />
       </S.Header>
 
       <S.CarImages>
@@ -59,7 +63,10 @@ export function CarDetails() {
       </S.Content>
 
       <S.Footer>
-        <Button title="Confirmar" />
+        <Button
+          title="Escolher período do aluguel"
+          onPress={() => navigation.navigate('Scheduling' as never)}
+        />
       </S.Footer>
     </S.Container>
   );

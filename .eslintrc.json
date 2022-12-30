@@ -82,6 +82,7 @@
           "/^@expo/",
           "/^@testing-library/",
           "/^hooks/",
+          "/^routes/",
           "/^screens/",
           "/^components/",
           "/^styled-components/",
