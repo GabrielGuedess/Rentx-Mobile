@@ -37,7 +37,7 @@ export const Title = styled.Text`
     font-family: ${theme.fonts.secondarySemiBold};
     font-size: ${RFValue(34)}px;
     color: ${theme.colors.shape};
-    margin: ${RFValue(24)}px 0;
+    margin-top: ${RFValue(24)}px;
   `}
 `;
 

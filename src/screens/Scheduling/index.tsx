@@ -4,6 +4,7 @@ import { StatusBar } from 'expo-status-bar';
 
 import { BackButton } from 'components/BackButton';
 import { Button } from 'components/Button';
+import { Calendar } from 'components/Calendar';
 
 import { useTheme } from 'styled-components/native';
 
@@ -42,7 +43,9 @@ export function Scheduling() {
         </S.RentalPeriod>
       </S.Header>
 
-      <S.Content />
+      <S.Content>
+        <Calendar />
+      </S.Content>
 
       <S.Footer>
         <Button title="Confirmar" />
