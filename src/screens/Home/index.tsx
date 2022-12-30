@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { RFValue } from 'react-native-responsive-fontsize';
 
 import { useNavigation } from '@react-navigation/native';
@@ -6,15 +6,36 @@ import { useNavigation } from '@react-navigation/native';
 import { StatusBar } from 'expo-status-bar';
 
 import { Car } from 'components/Car';
+import { Load } from 'components/Load';
 
 import Logo from 'assets/logo.svg';
 
-import { mockCars } from './mock';
+import { CarDTO } from 'dtos/CarDTO';
+import { api } from 'services/api';
 
 import * as S from './styles';
 
 export function Home() {
+  const [cars, setCars] = useState<CarDTO[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+
   const navigation = useNavigation();
+
+  useEffect(() => {
+    async function getData() {
+      try {
+        const response = await api.get<CarDTO[]>('/cars');
+
+        setCars(response.data);
+      } catch (error) {
+        console.error(error);
+      } finally {
+        setIsLoading(false);
+      }
+    }
+
+    getData();
+  }, []);
 
   return (
     <S.Container>
@@ -27,16 +48,20 @@ export function Home() {
         </S.HeaderContent>
       </S.Header>
 
-      <S.CarList
-        data={mockCars}
-        keyExtractor={item => item.name}
-        renderItem={({ item }) => (
-          <Car
-            {...item}
-            onPress={() => navigation.navigate('CarDetails' as never)}
-          />
-        )}
-      />
+      {isLoading ? (
+        <Load />
+      ) : (
+        <S.CarList
+          data={cars}
+          keyExtractor={item => item.id}
+          renderItem={({ item }) => (
+            <Car
+              data={item}
+              onPress={() => navigation.navigate('CarDetails', { car: item })}
+            />
+          )}
+        />
+      )}
     </S.Container>
   );
 }
