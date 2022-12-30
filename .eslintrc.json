@@ -38,7 +38,6 @@
     "react/prop-types": "off",
     "react/react-in-jsx-scope": "off",
     "react/jsx-props-no-spreading": "off",
-    "import/no-extraneous-dependencies": ["error", { "devDependencies": true }],
     "react-hooks/rules-of-hooks": "error",
     "react-hooks/exhaustive-deps": "warn",
     "@typescript-eslint/explicit-module-boundary-types": "off",
@@ -87,6 +86,7 @@
           "/^components/",
           "/^styled-components/",
           "/^assets/",
+          "/mock/",
           "/^styles/",
           "module",
           ["parent", "sibling", "index"]

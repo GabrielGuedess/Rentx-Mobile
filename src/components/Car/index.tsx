@@ -4,7 +4,7 @@ import Gasoline from 'assets/gasoline.svg';
 
 import * as S from './styles';
 
-interface CarProps {
+export interface CarProps {
   brand: string;
   name: string;
   thumbnail: string;
