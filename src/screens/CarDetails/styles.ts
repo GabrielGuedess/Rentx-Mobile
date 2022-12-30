@@ -78,6 +78,16 @@ export const Price = styled.Text`
   `}
 `;
 
+export const Accessories = styled.View`
+  width: 100%;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: ${RFValue(16)}px;
+  line-height: ${RFValue(25)}px;
+`;
+
 export const About = styled.Text`
   ${({ theme }) => css`
     font-family: ${theme.fonts.primaryRegular};
