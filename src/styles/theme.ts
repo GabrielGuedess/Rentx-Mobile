@@ -5,17 +5,17 @@ export default {
     title: '#47474d',
     line: '#ebebf0',
 
-    background_primary: '#f4f5f6',
-    background_secondary: '#ffffff',
+    backgroundPrimary: '#f4f5f6',
+    backgroundSecondary: '#ffffff',
 
     text: '#7a7a80',
-    text_detail: '#aeaeb3',
+    textDetail: '#aeaeb3',
 
     main: '#dc1637',
-    main_light: '#fdedef',
+    mainLight: '#fdedef',
 
     shape: '#e1e1e8',
-    shape_dark: '#29292e',
+    shapeDark: '#29292e',
   },
   fonts: {
     primaryRegular: 'Inter_400Regular',

@@ -3,14 +3,17 @@ import { RFValue } from 'react-native-responsive-fontsize';
 import styled, { css } from 'styled-components/native';
 
 export const Container = styled.View`
-  flex: 1;
+  ${({ theme }) => css`
+    flex: 1;
+    background-color: ${theme.colors.backgroundPrimary};
+  `}
 `;
 
 export const Header = styled.View`
   ${({ theme }) => css`
     width: 100%;
     height: ${RFValue(113)}px;
-    background: ${theme.colors.shape_dark};
+    background: ${theme.colors.shapeDark};
     justify-content: flex-end;
   `}
 `;
