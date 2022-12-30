@@ -2,6 +2,7 @@ import React from 'react';
 
 import { Accessory } from 'components/Accessory';
 import { BackButton } from 'components/BackButton';
+import { Button } from 'components/Button';
 import { ImageSlider } from 'components/ImageSlider';
 
 import Acceleration from 'assets/acceleration.svg';
@@ -56,6 +57,10 @@ export function CarDetails() {
           gosta de acelerar.
         </S.About>
       </S.Content>
+
+      <S.Footer>
+        <Button title="Confirmar" />
+      </S.Footer>
     </S.Container>
   );
 }
