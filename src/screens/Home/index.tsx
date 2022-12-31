@@ -11,7 +11,7 @@ import { CarDTO } from 'dtos/CarDTO';
 import { api } from 'services/api';
 
 import { Car } from 'components/Car';
-import { Load } from 'components/Load';
+import { LoadAnimation } from 'components/LoadAnimation';
 
 import { useTheme } from 'styled-components';
 
@@ -54,7 +54,7 @@ export function Home() {
       </S.Header>
 
       {isLoading ? (
-        <Load />
+        <LoadAnimation />
       ) : (
         <S.CarList
           data={cars}
