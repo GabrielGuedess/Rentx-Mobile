@@ -81,6 +81,7 @@
           "/^expo/",
           "/^@expo/",
           "/^@testing-library/",
+          "module",
           "/^hooks/",
           "/^routes/",
           "/^screens/",
@@ -89,7 +90,6 @@
           "/^assets/",
           "/mock/",
           "/^styles/",
-          "module",
           ["parent", "sibling", "index"]
         ],
         "alphabetize": { "order": "asc", "ignoreCase": true }

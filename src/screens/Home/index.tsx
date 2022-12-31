@@ -5,13 +5,13 @@ import { useNavigation } from '@react-navigation/native';
 
 import { StatusBar } from 'expo-status-bar';
 
+import { CarDTO } from 'dtos/CarDTO';
+import { api } from 'services/api';
+
 import { Car } from 'components/Car';
 import { Load } from 'components/Load';
 
 import Logo from 'assets/logo.svg';
-
-import { CarDTO } from 'dtos/CarDTO';
-import { api } from 'services/api';
 
 import * as S from './styles';
 

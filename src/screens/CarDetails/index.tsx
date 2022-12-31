@@ -2,14 +2,14 @@ import React from 'react';
 
 import { useNavigation, useRoute } from '@react-navigation/native';
 
+import { getAccessoryIcon } from 'utils/getAccessoryIcon';
+
 import { RootRouteProps } from 'routes/stack.routes';
 
 import { Accessory } from 'components/Accessory';
 import { BackButton } from 'components/BackButton';
 import { Button } from 'components/Button';
 import { ImageSlider } from 'components/ImageSlider';
-
-import { getAccessoryIcon } from 'utils/getAccessoryIcon';
 
 import * as S from './styles';
 
