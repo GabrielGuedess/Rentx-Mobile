@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { Alert } from 'react-native';
 
 import { useNavigation, useRoute } from '@react-navigation/native';
 
@@ -43,14 +42,10 @@ export function Scheduling() {
   } = useRoute<RootRouteProps<'Scheduling'>>();
 
   function handleConfirmRental() {
-    if (!rentalPeriod.start || !rentalPeriod.end) {
-      Alert.alert('Selecione o intervalo para alugar.');
-    } else {
-      navigation.navigate('SchedulingDetails', {
-        car,
-        dates: Object.keys(markedDates),
-      });
-    }
+    navigation.navigate('SchedulingDetails', {
+      car,
+      dates: Object.keys(markedDates),
+    });
   }
 
   function handleChangeDate(date: DayProps) {
@@ -120,7 +115,11 @@ export function Scheduling() {
       </S.Content>
 
       <S.Footer>
-        <Button title="Confirmar" onPress={handleConfirmRental} />
+        <Button
+          enabled={!!rentalPeriod.end}
+          title="Confirmar"
+          onPress={handleConfirmRental}
+        />
       </S.Footer>
     </S.Container>
   );

@@ -49,7 +49,7 @@ export function Home() {
       <S.Header>
         <S.HeaderContent>
           <Logo width={RFValue(108)} height={RFValue(12)} />
-          <S.TotalCars>Total 12 carros</S.TotalCars>
+          <S.TotalCars>Total {cars.length} carros</S.TotalCars>
         </S.HeaderContent>
       </S.Header>
 
