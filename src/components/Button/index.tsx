@@ -9,6 +9,7 @@ import * as S from './styles';
 export interface ButtonProps extends RectButtonProps {
   title: string;
   color?: string;
+  light?: boolean;
   isLoading?: boolean;
 }
 
@@ -16,6 +17,7 @@ export function Button({
   title,
   color,
   enabled = true,
+  light = false,
   isLoading = false,
   ...props
 }: ButtonProps) {
@@ -31,7 +33,7 @@ export function Button({
       {isLoading ? (
         <ActivityIndicator color={theme.colors.shape} size={23} />
       ) : (
-        <S.Title>{title}</S.Title>
+        <S.Title light={light}>{title}</S.Title>
       )}
     </S.Container>
   );

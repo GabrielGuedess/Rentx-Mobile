@@ -12,13 +12,14 @@ export const Container = styled(RectButton)<Pick<ButtonProps, 'color'>>`
     align-items: center;
     justify-content: center;
     background: ${color ?? theme.colors.main};
+    margin-bottom: 8px;
   `}
 `;
 
-export const Title = styled.Text`
-  ${({ theme }) => css`
+export const Title = styled.Text<Pick<ButtonProps, 'light'>>`
+  ${({ theme, light }) => css`
     font-family: ${theme.fonts.primaryMedium};
     font-size: ${RFValue(15)}px;
-    color: ${theme.colors.shape};
+    color: ${light ? theme.colors.header : theme.colors.shape};
   `}
 `;
