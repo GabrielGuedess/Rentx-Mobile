@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { TextInputProps } from 'react-native';
+import { TextInputProps, TouchableNativeFeedback } from 'react-native';
 import { BorderlessButton } from 'react-native-gesture-handler';
 
 import { Feather } from '@expo/vector-icons';
@@ -50,13 +50,15 @@ export function PasswordInput({
       <BorderlessButton
         onPress={() => setIsPasswordVisible(!isPasswordVisible)}
       >
-        <S.IconContainer isFocused={isFocused}>
-          <Feather
-            size={24}
-            color={theme.colors.textDetail}
-            name={isPasswordVisible ? 'eye' : 'eye-off'}
-          />
-        </S.IconContainer>
+        <TouchableNativeFeedback>
+          <S.IconContainer isFocused={isFocused}>
+            <Feather
+              size={24}
+              color={theme.colors.textDetail}
+              name={isPasswordVisible ? 'eye' : 'eye-off'}
+            />
+          </S.IconContainer>
+        </TouchableNativeFeedback>
       </BorderlessButton>
     </S.Container>
   );
