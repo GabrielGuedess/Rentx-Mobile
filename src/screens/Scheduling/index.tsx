@@ -6,7 +6,7 @@ import { StatusBar } from 'expo-status-bar';
 
 import { addDays, format } from 'date-fns';
 
-import { RootRouteProps } from 'routes/stack.routes';
+import { RootRouteProps } from 'routes';
 
 import { BackButton } from 'components/BackButton';
 import { Button } from 'components/Button';

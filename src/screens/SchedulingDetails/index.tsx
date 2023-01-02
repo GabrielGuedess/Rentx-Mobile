@@ -11,7 +11,7 @@ import { SchedulesDTO } from 'dtos/SchedulesDTO';
 import { api } from 'services/api';
 import { getAccessoryIcon } from 'utils/getAccessoryIcon';
 
-import { RootRouteProps } from 'routes/stack.routes';
+import { RootRouteProps } from 'routes';
 
 import { Accessory } from 'components/Accessory';
 import { BackButton } from 'components/BackButton';

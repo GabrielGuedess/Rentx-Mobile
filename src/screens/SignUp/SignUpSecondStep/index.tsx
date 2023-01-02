@@ -6,7 +6,11 @@ import {
   TouchableWithoutFeedback,
 } from 'react-native';
 
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
+
+import { api } from 'services/api';
+
+import { RootRouteProps } from 'routes';
 
 import { BackButton } from 'components/BackButton';
 import { Bullet } from 'components/Bullet';
@@ -24,7 +28,11 @@ export function SignUpSecondStep() {
   const { navigate, goBack } = useNavigation();
   const { colors } = useTheme();
 
-  function handleRegister() {
+  const {
+    params: { user },
+  } = useRoute<RootRouteProps<'SignUpSecondStep'>>();
+
+  async function handleRegister() {
     if (!password || !confirmPassword) {
       return Alert.alert('Informe a senha e confirmação dela');
     }
@@ -33,11 +41,21 @@ export function SignUpSecondStep() {
       return Alert.alert('As senhas não são iguais');
     }
 
-    navigate('Confirmation', {
-      title: 'Conta criada!',
-      message: `Agora é só fazer login \n e aproveitar`,
-      nextScreenRoute: 'SignIn',
-    });
+    await api
+      .post('/users', {
+        name: user.name,
+        email: user.email,
+        driver_license: user.driverLicense,
+        password,
+      })
+      .then(() => {
+        navigate('Confirmation', {
+          title: 'Conta criada!',
+          message: `Agora é só fazer login \n e aproveitar`,
+          nextScreenRoute: 'SignIn',
+        });
+      })
+      .catch(() => Alert.alert('Opa', 'Não foi possível cadastrar'));
   }
 
   return (

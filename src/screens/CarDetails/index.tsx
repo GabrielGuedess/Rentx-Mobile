@@ -13,7 +13,7 @@ import { useNavigation, useRoute } from '@react-navigation/native';
 
 import { getAccessoryIcon } from 'utils/getAccessoryIcon';
 
-import { RootRouteProps } from 'routes/stack.routes';
+import { RootRouteProps } from 'routes';
 
 import { Accessory } from 'components/Accessory';
 import { BackButton } from 'components/BackButton';
@@ -97,8 +97,8 @@ export function CarDetails() {
           </S.Description>
 
           <S.Rent>
-            <S.Period>{car.rent.period}</S.Period>
-            <S.Price>R$ {car.rent.price}</S.Price>
+            <S.Period>{car.period}</S.Period>
+            <S.Price>R$ {car.price}</S.Price>
           </S.Rent>
         </S.Details>
 

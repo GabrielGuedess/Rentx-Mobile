@@ -1,11 +1,9 @@
 import React from 'react';
 
-import { RouteProp } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
 import { CarDTO } from 'dtos/CarDTO';
 import { ConfirmationDTO } from 'dtos/ConfirmationDTO';
-import { FirstStepDTO } from 'dtos/FirstStepDTO';
 
 import { CarDetails } from 'screens/CarDetails';
 import { Confirmation } from 'screens/Confirmation';
@@ -13,14 +11,8 @@ import { Home } from 'screens/Home';
 import { MyCars } from 'screens/MyCars';
 import { Scheduling } from 'screens/Scheduling';
 import { SchedulingDetails } from 'screens/SchedulingDetails';
-import { SignIn } from 'screens/SignIn';
-import { SignUpFirstStep } from 'screens/SignUp/SignUpFirstStep';
-import { SignUpSecondStep } from 'screens/SignUp/SignUpSecondStep';
 
-export type RootStackParamList = {
-  SignIn: undefined;
-  SignUpFirstStep: undefined;
-  SignUpSecondStep: { user: FirstStepDTO };
+export type AppStackParamList = {
   Home: undefined;
   CarDetails: { car: CarDTO };
   Scheduling: { car: CarDTO };
@@ -29,23 +21,17 @@ export type RootStackParamList = {
   Confirmation: ConfirmationDTO;
 };
 
-export type RootRouteProps<RouteName extends keyof RootStackParamList> =
-  RouteProp<RootStackParamList, RouteName>;
+const { Navigator, Screen } = createStackNavigator<AppStackParamList>();
 
-const { Navigator, Screen } = createStackNavigator<RootStackParamList>();
-
-export function StackRoutes() {
+export function AppStackRoutes() {
   return (
-    <Navigator screenOptions={{ headerShown: false }} initialRouteName="SignIn">
-      <Screen name="SignIn" component={SignIn} />
-      <Screen name="SignUpFirstStep" component={SignUpFirstStep} />
-      <Screen name="SignUpSecondStep" component={SignUpSecondStep} />
+    <Navigator screenOptions={{ headerShown: false }} initialRouteName="Home">
       <Screen name="Home" component={Home} />
       <Screen name="CarDetails" component={CarDetails} />
       <Screen name="Scheduling" component={Scheduling} />
       <Screen name="SchedulingDetails" component={SchedulingDetails} />
-      <Screen name="Confirmation" component={Confirmation} />
       <Screen name="MyCars" component={MyCars} />
+      <Screen name="Confirmation" component={Confirmation} />
     </Navigator>
   );
 }

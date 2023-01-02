@@ -12,6 +12,8 @@ import { StatusBar } from 'expo-status-bar';
 
 import * as Yup from 'yup';
 
+import { useAuth } from 'hooks/auth';
+
 import { Button } from 'components/Button';
 import { Input } from 'components/Input';
 import { PasswordInput } from 'components/PasswordInput';
@@ -27,6 +29,8 @@ export function SignIn() {
   const { colors } = useTheme();
   const { navigate } = useNavigation();
 
+  const { signIn } = useAuth();
+
   async function handleSignIn() {
     try {
       const schema = Yup.object().shape({
@@ -38,7 +42,7 @@ export function SignIn() {
 
       await schema.validate({ email, password });
 
-      Alert.alert('tudo certo');
+      await signIn({ email, password });
     } catch (error) {
       if (error instanceof Yup.ValidationError) {
         Alert.alert('Opa', error.message);

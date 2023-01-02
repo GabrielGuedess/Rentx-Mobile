@@ -5,7 +5,7 @@ import { useNavigation, useRoute } from '@react-navigation/native';
 
 import { StatusBar } from 'expo-status-bar';
 
-import { RootRouteProps } from 'routes/stack.routes';
+import { RootRouteProps } from 'routes';
 
 import { ConfirmButton } from 'components/ConfirmButton';
 

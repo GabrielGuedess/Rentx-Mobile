@@ -1,13 +1,28 @@
 import React from 'react';
 
-import { NavigationContainer } from '@react-navigation/native';
+import { NavigationContainer, RouteProp } from '@react-navigation/native';
 
-import { StackRoutes } from './stack.routes';
+import { useAuth } from 'hooks/auth';
+
+import { AppStackParamList } from './app.stack.routes';
+import { AppTabRootStackParamList, AppTabRoutes } from './app.tab.routes';
+import { AuthRootStackParamList, AuthRoutes } from './auth.routes';
+
+export type RoutesParams = AuthRootStackParamList &
+  AppStackParamList &
+  AppTabRootStackParamList;
+
+export type RootRouteProps<RouteName extends keyof RoutesParams> = RouteProp<
+  RoutesParams,
+  RouteName
+>;
 
 export function Routes() {
+  const { user } = useAuth();
+
   return (
     <NavigationContainer>
-      <StackRoutes />
+      {user ? <AppTabRoutes /> : <AuthRoutes />}
     </NavigationContainer>
   );
 }

@@ -11,6 +11,8 @@ import {
 } from '@expo-google-fonts/archivo';
 import { Inter_400Regular, Inter_500Medium } from '@expo-google-fonts/inter';
 
+import { AuthProvider } from 'hooks/auth';
+
 import { Routes } from 'routes';
 
 import { ThemeProvider } from 'styled-components/native';
@@ -52,9 +54,11 @@ export default function App() {
 
   return (
     <ThemeProvider theme={theme}>
-      <GestureHandlerRootView onLayout={onLayoutRootView} style={{ flex: 1 }}>
-        <Routes />
-      </GestureHandlerRootView>
+      <AuthProvider>
+        <GestureHandlerRootView onLayout={onLayoutRootView} style={{ flex: 1 }}>
+          <Routes />
+        </GestureHandlerRootView>
+      </AuthProvider>
     </ThemeProvider>
   );
 }
