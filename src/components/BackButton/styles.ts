@@ -6,4 +6,5 @@ import styled from 'styled-components/native';
 export const Container = styled(BorderlessButton)`
   align-self: flex-start;
   padding: ${RFValue(5)}px;
+  z-index: 10;
 `;

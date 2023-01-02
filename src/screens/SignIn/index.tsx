@@ -6,6 +6,8 @@ import {
   Alert,
 } from 'react-native';
 
+import { useNavigation } from '@react-navigation/native';
+
 import { StatusBar } from 'expo-status-bar';
 
 import * as Yup from 'yup';
@@ -23,6 +25,7 @@ export function SignIn() {
   const [password, setPassword] = useState('');
 
   const { colors } = useTheme();
+  const { navigate } = useNavigation();
 
   async function handleSignIn() {
     try {
@@ -30,7 +33,6 @@ export function SignIn() {
         email: Yup.string()
           .required('E-mail obrigatório')
           .email('Digite um e-mail válido'),
-
         password: Yup.string().required('Senha obrigatório'),
       });
 
@@ -93,6 +95,7 @@ export function SignIn() {
               light
               title="Criar conta gratuita"
               color={colors.backgroundSecondary}
+              onPress={() => navigate('SignUpFirstStep')}
             />
           </S.Footer>
         </S.Container>

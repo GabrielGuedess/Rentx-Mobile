@@ -7,6 +7,10 @@ interface Rent {
   period: string;
   price: number;
 }
+export interface Photos {
+  id: string;
+  photo: string;
+}
 
 export interface CarDTO {
   id: string;
@@ -17,5 +21,5 @@ export interface CarDTO {
   fuel_type: string;
   thumbnail: string;
   accessories: Accessories[];
-  photos: string[];
+  photos: Photos[];
 }
