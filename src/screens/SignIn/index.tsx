@@ -1,4 +1,9 @@
 import React from 'react';
+import {
+  KeyboardAvoidingView,
+  TouchableWithoutFeedback,
+  Keyboard,
+} from 'react-native';
 
 import { useNavigation } from '@react-navigation/native';
 
@@ -17,45 +22,49 @@ export function SignIn() {
   const navigation = useNavigation();
 
   return (
-    <S.Container>
-      <StatusBar style="dark" backgroundColor="transparent" />
+    <KeyboardAvoidingView behavior="position" enabled>
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+        <S.Container>
+          <StatusBar style="dark" backgroundColor="transparent" />
 
-      <S.Header>
-        <S.Title>
-          Estamos {'\n'}
-          quase lá.
-        </S.Title>
-        <S.SubTitle>
-          Faça seu login para começar {'\n'}
-          uma experiência incrível.
-        </S.SubTitle>
-      </S.Header>
+          <S.Header>
+            <S.Title>
+              Estamos {'\n'}
+              quase lá.
+            </S.Title>
+            <S.SubTitle>
+              Faça seu login para começar {'\n'}
+              uma experiência incrível.
+            </S.SubTitle>
+          </S.Header>
 
-      <S.Form>
-        <Input
-          iconName="mail"
-          placeholder="E-mail"
-          keyboardType="email-address"
-          autoComplete="off"
-          autoCapitalize="none"
-        />
-        <PasswordInput
-          iconName="lock"
-          placeholder="Senha"
-          autoComplete="off"
-          autoCapitalize="none"
-        />
-      </S.Form>
+          <S.Form>
+            <Input
+              iconName="mail"
+              placeholder="E-mail"
+              keyboardType="email-address"
+              autoComplete="off"
+              autoCapitalize="none"
+            />
+            <PasswordInput
+              iconName="lock"
+              placeholder="Senha"
+              autoComplete="off"
+              autoCapitalize="none"
+            />
+          </S.Form>
 
-      <S.Footer>
-        <Button title="Login" onPress={() => navigation.navigate('Home')} />
+          <S.Footer>
+            <Button title="Login" onPress={() => navigation.navigate('Home')} />
 
-        <Button
-          light
-          title="Criar conta gratuita"
-          color={theme.colors.backgroundSecondary}
-        />
-      </S.Footer>
-    </S.Container>
+            <Button
+              light
+              title="Criar conta gratuita"
+              color={theme.colors.backgroundSecondary}
+            />
+          </S.Footer>
+        </S.Container>
+      </TouchableWithoutFeedback>
+    </KeyboardAvoidingView>
   );
 }

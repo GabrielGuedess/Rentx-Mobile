@@ -28,5 +28,3 @@ export const InputText = styled.TextInput`
     padding: 0 ${RFValue(23)}px;
   `}
 `;
-
-export const ChangePasswordVisibilityButton = styled(BorderlessButton)``;
