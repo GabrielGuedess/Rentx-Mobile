@@ -32,7 +32,12 @@
   ],
   "ignorePatterns": ["metro.config.js"],
   "rules": {
-    "prettier/prettier": "error",
+    "prettier/prettier": [
+      "error",
+      {
+        "endOfLine": "auto"
+      }
+    ],
     "space-before-function-paren": "off",
     "arrow-parens": "off",
     "react/prop-types": "off",

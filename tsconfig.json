@@ -4,6 +4,8 @@
     "baseUrl": "./src",
     "allowJs": true,
     "skipLibCheck": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
     "strict": true,
     "forceConsistentCasingInFileNames": true,
     "noEmit": true,
