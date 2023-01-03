@@ -39,6 +39,9 @@ export function PasswordInput({
       <S.InputText
         secureTextEntry={isPasswordVisible}
         isFocused={isFocused}
+        autoCapitalize="none"
+        autoComplete="off"
+        autoCorrect={false}
         onFocus={() => setIsFocused(true)}
         onBlur={() => {
           setIsFocused(false);

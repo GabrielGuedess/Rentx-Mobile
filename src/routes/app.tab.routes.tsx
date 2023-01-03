@@ -3,16 +3,16 @@ import { Platform } from 'react-native';
 
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
+import { AppStackRoutes } from './app.stack.routes';
+
 import { MyCars } from 'screens/MyCars';
-import { SignIn } from 'screens/SignIn';
+import { Profile } from 'screens/Profile';
 
 import { useTheme } from 'styled-components';
 
 import Car from 'assets/car.svg';
 import Home from 'assets/home.svg';
 import People from 'assets/people.svg';
-
-import { AppStackRoutes } from './app.stack.routes';
 
 export type AppTabRootStackParamList = {
   AppStackRoutes: undefined;
@@ -60,7 +60,7 @@ export function AppTabRoutes() {
       />
       <Screen
         name="Profile"
-        component={SignIn}
+        component={Profile}
         options={{
           tabBarIcon: ({ color }) => (
             <People width={24} height={24} fill={color} />

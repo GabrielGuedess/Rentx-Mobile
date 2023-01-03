@@ -88,7 +88,7 @@
           "/^@testing-library/",
           "module",
           "/^hooks/",
-          "/^routes/",
+          "/routes/",
           "/^screens/",
           "/^components/",
           "/^styled-components/",
