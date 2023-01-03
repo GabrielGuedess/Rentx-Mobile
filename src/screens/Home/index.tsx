@@ -22,19 +22,29 @@ export function Home() {
   const navigation = useNavigation();
 
   useEffect(() => {
+    let isMounted = true;
+
     async function getData() {
       try {
         const response = await api.get<CarDTO[]>('/cars');
 
-        setCars(response.data);
+        if (isMounted) {
+          setCars(response.data);
+        }
       } catch (error) {
         console.error(error);
       } finally {
-        setIsLoading(false);
+        if (isMounted) {
+          setIsLoading(false);
+        }
       }
     }
 
     getData();
+
+    return () => {
+      isMounted = false;
+    };
   }, []);
 
   return (
