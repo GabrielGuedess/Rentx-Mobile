@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react';
 
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useIsFocused } from '@react-navigation/native';
 
 import { StatusBar } from 'expo-status-bar';
 
 import { AntDesign } from '@expo/vector-icons';
 
-import { CarDTO } from 'dtos/CarDTO';
+import { Car as ModelCar } from 'database/models/Car';
+import { format } from 'date-fns';
 import { api } from 'services/api';
 
 import { BackButton } from 'components/BackButton';
@@ -16,30 +17,28 @@ import { Load } from 'components/Load';
 import { useTheme } from 'styled-components';
 
 import * as S from './styles';
-
 export interface CarProps {
   id: string;
-  user_id: string;
-  car: CarDTO;
-  startDate: string;
-  endDate: string;
+  car: ModelCar;
+  start_date: string;
+  end_date: string;
 }
 
 export function MyCars() {
   const [cars, setCars] = useState<CarProps[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
-  const theme = useTheme();
-  const navigation = useNavigation();
+  const { goBack } = useNavigation();
+  const { colors } = useTheme();
+
+  const screenIsFocused = useIsFocused();
 
   useEffect(() => {
     async function getCars() {
       try {
-        const response = await api.get<CarProps[]>(
-          'schedules_byuser?user_id=1',
-        );
+        const { data } = await api.get<CarProps[]>('rentals');
 
-        setCars(response.data);
+        setCars(data);
       } catch (error) {
         console.error(error);
       } finally {
@@ -48,17 +47,14 @@ export function MyCars() {
     }
 
     getCars();
-  }, []);
+  }, [screenIsFocused]);
 
   return (
     <S.Container>
       <StatusBar style="light" backgroundColor="transparent" />
 
       <S.Header>
-        <BackButton
-          color={theme.colors.shape}
-          onPress={() => navigation.goBack()}
-        />
+        <BackButton color={colors.shape} onPress={() => goBack()} />
 
         <S.Title>Seus agendamentos, estão aqui.</S.Title>
 
@@ -85,14 +81,18 @@ export function MyCars() {
                 <S.CarFooter>
                   <S.CarFooterTitle>Período</S.CarFooterTitle>
                   <S.CarFooterPeriod>
-                    <S.CarFooterDate>{item.startDate}</S.CarFooterDate>
+                    <S.CarFooterDate>
+                      {format(new Date(item.start_date), 'dd/MM/yyyy')}
+                    </S.CarFooterDate>
                     <AntDesign
                       name="arrowright"
                       size={20}
-                      color={theme.colors.title}
+                      color={colors.title}
                       style={{ marginHorizontal: 10 }}
                     />
-                    <S.CarFooterDate>{item.endDate}</S.CarFooterDate>
+                    <S.CarFooterDate>
+                      {format(new Date(item.end_date), 'dd/MM/yyyy')}
+                    </S.CarFooterDate>
                   </S.CarFooterPeriod>
                 </S.CarFooter>
               </S.CarWrapper>

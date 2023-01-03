@@ -6,7 +6,7 @@ export const Container = styled.View`
   ${({ theme }) => css`
     flex: 1;
     background: ${theme.colors.header};
-    padding-top: ${RFValue(96)}px;
+    padding-top: ${RFValue(50)}px;
   `}
 `;
 
