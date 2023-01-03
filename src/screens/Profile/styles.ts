@@ -54,7 +54,7 @@ export const PhotoContainer = styled.View`
     width: ${RFValue(180)}px;
     height: ${RFValue(180)}px;
     border-radius: ${RFValue(90)}px;
-    margin-top: ${RFValue(48)}px;
+    margin-top: ${RFValue(20)}px;
     background: ${theme.colors.shape};
   `}
 `;
@@ -80,7 +80,7 @@ export const PhotoButton = styled(RectButton)`
 
 export const Content = styled.View`
   padding: 0 ${RFValue(24)}px;
-  margin-top: ${RFValue(122)}px;
+  margin-top: ${RFValue(80)}px;
 `;
 
 export const Options = styled.View`
