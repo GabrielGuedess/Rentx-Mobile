@@ -6,6 +6,7 @@ import {
   Alert,
 } from 'react-native';
 
+import { useNetInfo } from '@react-native-community/netinfo';
 import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
 import { useNavigation } from '@react-navigation/native';
 
@@ -37,6 +38,7 @@ export function Profile() {
   const [driverLicense, setDriverLicense] = useState(user.driver_license);
 
   const { colors } = useTheme();
+  const { isConnected } = useNetInfo();
   const { goBack } = useNavigation();
 
   async function handleAvatarSelect() {
@@ -104,6 +106,17 @@ export function Profile() {
     );
   }
 
+  function handleOption(option: 'dataEdit' | 'passwordEdit') {
+    if (isConnected === false && option === 'passwordEdit') {
+      Alert.alert(
+        'Você está Offline',
+        'Para mudar a senha, conecte-se a Internet',
+      );
+    } else {
+      setOption(option);
+    }
+  }
+
   return (
     <KeyboardAvoidingView behavior="position" enabled>
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -138,7 +151,7 @@ export function Profile() {
             <S.Options>
               <S.Option
                 isActive={option === 'dataEdit'}
-                onPress={() => setOption('dataEdit')}
+                onPress={() => handleOption('dataEdit')}
               >
                 <S.OptionTitle isActive={option === 'dataEdit'}>
                   Dados
@@ -147,7 +160,7 @@ export function Profile() {
 
               <S.Option
                 isActive={option === 'passwordEdit'}
-                onPress={() => setOption('passwordEdit')}
+                onPress={() => handleOption('passwordEdit')}
               >
                 <S.OptionTitle isActive={option === 'passwordEdit'}>
                   Trocar senha

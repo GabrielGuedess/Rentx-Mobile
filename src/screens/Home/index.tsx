@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { RFValue } from 'react-native-responsive-fontsize';
 
+import { useNetInfo } from '@react-native-community/netinfo';
 import { useNavigation } from '@react-navigation/native';
 
 import { StatusBar } from 'expo-status-bar';
 
-import { CarDTO } from 'dtos/CarDTO';
+import { synchronize } from '@nozbe/watermelondb/sync';
+import { database } from 'database';
+import { Car as ModelCar } from 'database/models/Car';
 import { api } from 'services/api';
 
 import { Car } from 'components/Car';
@@ -16,36 +19,66 @@ import Logo from 'assets/logo.svg';
 import * as S from './styles';
 
 export function Home() {
-  const [cars, setCars] = useState<CarDTO[]>([]);
+  const [cars, setCars] = useState<ModelCar[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
-  const navigation = useNavigation();
+  const { isConnected } = useNetInfo();
+  const { navigate } = useNavigation();
+
+  async function offlineSynchronize() {
+    await synchronize({
+      database,
+      pullChanges: async ({ lastPulledAt }) => {
+        const response = await api.get(
+          `cars/sync/pull?lastPulledVersion=${lastPulledAt || 0}`,
+        );
+
+        const { changes, latestVersion } = response.data;
+
+        return { changes, timestamp: latestVersion };
+      },
+      pushChanges: async ({ changes }) => {
+        const user = changes.users;
+        if (user) {
+          await api.post('/users/sync', user);
+        }
+      },
+    });
+
+    await fetchCars();
+  }
+
+  async function fetchCars() {
+    try {
+      const carCollection = database.get<ModelCar>('cars');
+      const cars = await carCollection.query().fetch();
+
+      setCars(cars);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setIsLoading(false);
+    }
+  }
 
   useEffect(() => {
     let isMounted = true;
 
-    async function getData() {
-      try {
-        const response = await api.get<CarDTO[]>('/cars');
-
-        if (isMounted) {
-          setCars(response.data);
-        }
-      } catch (error) {
-        console.error(error);
-      } finally {
-        if (isMounted) {
-          setIsLoading(false);
-        }
-      }
+    if (isMounted) {
+      fetchCars();
     }
-
-    getData();
 
     return () => {
       isMounted = false;
     };
   }, []);
+
+  useEffect(() => {
+    if (isConnected === true) {
+      offlineSynchronize();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isConnected]);
 
   return (
     <S.Container>
@@ -67,7 +100,7 @@ export function Home() {
           renderItem={({ item }) => (
             <Car
               data={item}
-              onPress={() => navigation.navigate('CarDetails', { car: item })}
+              onPress={() => navigate('CarDetails', { car: item })}
             />
           )}
         />

@@ -32,12 +32,7 @@
   ],
   "ignorePatterns": ["metro.config.js"],
   "rules": {
-    "prettier/prettier": [
-      "error",
-      {
-        "endOfLine": "auto"
-      }
-    ],
+    "no-extra-boolean-cast": "off",
     "space-before-function-paren": "off",
     "arrow-parens": "off",
     "react/prop-types": "off",
@@ -50,6 +45,12 @@
     "import/prefer-default-export": "off",
     "@typescript-eslint/no-non-null-assertion": "off",
     "react/function-component-definition": "off",
+    "prettier/prettier": [
+      "error",
+      {
+        "endOfLine": "auto"
+      }
+    ],
     "react/self-closing-comp": [
       "error",
       {

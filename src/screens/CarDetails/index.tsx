@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { StyleSheet } from 'react-native';
 import { getStatusBarHeight } from 'react-native-iphone-x-helper';
 import Animated, {
@@ -9,8 +9,11 @@ import Animated, {
   useSharedValue,
 } from 'react-native-reanimated';
 
+import { useNetInfo } from '@react-native-community/netinfo';
 import { useNavigation, useRoute } from '@react-navigation/native';
 
+import { CarDTO } from 'dtos/CarDTO';
+import { api } from 'services/api';
 import { getAccessoryIcon } from 'utils/getAccessoryIcon';
 
 import { RootRouteProps } from 'routes';
@@ -25,12 +28,15 @@ import { useTheme } from 'styled-components';
 import * as S from './styles';
 
 export function CarDetails() {
+  const [carUpdated, setCarUpdated] = useState<CarDTO>({} as CarDTO);
+
   const {
     params: { car },
   } = useRoute<RootRouteProps<'CarDetails'>>();
 
-  const navigation = useNavigation();
-  const theme = useTheme();
+  const { navigate, goBack } = useNavigation();
+  const { isConnected } = useNetInfo();
+  const { colors } = useTheme();
 
   const scrollY = useSharedValue(0);
 
@@ -55,25 +61,38 @@ export function CarDetails() {
     };
   });
 
+  useEffect(() => {
+    async function fetchCarUpdated() {
+      const { data } = await api.get(`/cars/${car.id}`);
+
+      setCarUpdated(data);
+    }
+
+    if (isConnected === true) {
+      fetchCarUpdated();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isConnected]);
+
   return (
     <S.Container>
       <Animated.View
         style={[
           headerStyleAnimation,
           styles.header,
-          { backgroundColor: theme.colors.backgroundSecondary },
+          { backgroundColor: colors.backgroundSecondary },
         ]}
       >
         <S.Header>
-          <BackButton onPress={() => navigation.goBack()} />
+          <BackButton onPress={() => goBack()} />
         </S.Header>
 
         <Animated.View style={sliderCarsStyleAnimation}>
           <S.CarImages>
             <ImageSlider
               imagesUrl={
-                car.photos
-                  ? car.photos
+                !!carUpdated.photos
+                  ? carUpdated.photos
                   : [{ id: car.thumbnail, photo: car.thumbnail }]
               }
             />
@@ -98,19 +117,21 @@ export function CarDetails() {
 
           <S.Rent>
             <S.Period>{car.period}</S.Period>
-            <S.Price>R$ {car.price}</S.Price>
+            <S.Price>R$ {isConnected === true ? car.price : '...'}</S.Price>
           </S.Rent>
         </S.Details>
 
-        <S.Accessories>
-          {car.accessories.map(accessory => (
-            <Accessory
-              key={accessory.type}
-              name={accessory.name}
-              icon={getAccessoryIcon(accessory.type)}
-            />
-          ))}
-        </S.Accessories>
+        {carUpdated.accessories && (
+          <S.Accessories>
+            {carUpdated.accessories.map(accessory => (
+              <Accessory
+                key={accessory.type}
+                name={accessory.name}
+                icon={getAccessoryIcon(accessory.type)}
+              />
+            ))}
+          </S.Accessories>
+        )}
 
         <S.About>{car.about}</S.About>
       </Animated.ScrollView>
@@ -118,8 +139,15 @@ export function CarDetails() {
       <S.Footer>
         <Button
           title="Escolher período do aluguel"
-          onPress={() => navigation.navigate('Scheduling', { car })}
+          enabled={isConnected === true}
+          onPress={() => navigate('Scheduling', { car: carUpdated })}
         />
+
+        {isConnected === false && (
+          <S.OfflineInfo>
+            Conecte-se à Internet para ver mais detalhes e agendar seu carro.
+          </S.OfflineInfo>
+        )}
       </S.Footer>
     </S.Container>
   );
